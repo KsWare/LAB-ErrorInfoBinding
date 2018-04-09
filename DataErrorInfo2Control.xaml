@@ -1,0 +1,31 @@
+﻿<UserControl
+	x:Class="ErrorInfoBinding.DataErrorInfo2Control"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="clr-namespace:ErrorInfoBinding"
+	mc:Ignorable="d" >
+	<UserControl.DataContext>
+		<local:DataErrorInfo2ControlVM />
+	</UserControl.DataContext>
+	<UserControl.Resources>
+		<!--The tool tip for the TextBox to display the validation error message.-->
+		<Style TargetType="TextBox">
+			<Style.Triggers>
+				<Trigger Property="Validation.HasError" Value="true">
+					<Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self},Path=(Validation.Errors)[0].ErrorContent}" />
+				</Trigger>
+			</Style.Triggers>
+		</Style>
+	</UserControl.Resources>
+	<GroupBox Padding="4">
+		<StackPanel>
+			<TextBlock TextWrapping="Wrap" Text="IDataErrorInfo + &#x0D;&#x0A;ValidatesOnDataErrors" />
+			<TextBox Text="{Binding A, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Margin="2" Width="50"
+					 HorizontalAlignment="Left" />
+			<TextBox Text="{Binding B, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Margin="2" Width="50"
+					 HorizontalAlignment="Left" />
+		</StackPanel>
+	</GroupBox>
+</UserControl>
